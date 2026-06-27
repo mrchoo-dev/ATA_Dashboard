@@ -318,7 +318,9 @@ function makeBrandMap(
   const result: BrandMap = { LG: null, "삼성": null };
   items.forEach((item) => {
     const latest = latestByItemChannel.get(`${item.id}:${channel.id}`) ?? null;
-    if (!result[item.brand] || latest?.captured_at > (result[item.brand]?.latest?.captured_at ?? "")) {
+    const latestTime = latest?.captured_at ?? "";
+    const currentTime = result[item.brand]?.latest?.captured_at ?? "";
+    if (!result[item.brand] || latestTime > currentTime) {
       result[item.brand] = { item, latest };
     }
   });
